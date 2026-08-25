@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍑 Juicy Fashion Closet - Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fef6f2;
+            color: #2d1f1b;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #fad5cd;
+            background: rgba(255, 248, 245, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #b34a3c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .logo img {
+            height: 45px;
+            width: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #d67a62;
+        }
+        .logo i {
+            color: #d67a62;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4f3630;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .nav a:hover,
+        .nav a.active {
+            background: #d67a62;
+            color: white;
+        }
+        .nav .logout-btn {
+            background: #8f4735;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .nav .logout-btn:hover {
+            background: #6d3527;
+        }
+        
+        /* ADMIN DASHBOARD */
+        .admin-section {
+            background: #fff4ef;
+            border-radius: 40px;
+            padding: 28px 30px;
+            margin: 30px 0 20px;
+            border: 1px solid #fad2c6;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .admin-header h2 {
+            color: #763f31;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: white;
+            padding: 18px 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #f5dbd2;
+            transition: 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d67a62;
+        }
+        .stat-card .label {
+            font-size: 0.85rem;
+            color: #763f31;
+            font-weight: 600;
+        }
+        
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .admin-card {
+            background: white;
+            border-radius: 28px;
+            padding: 22px 20px 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+        .admin-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #763f31;
+            border-bottom: 2px dashed #f5d3c8;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+        .admin-card h4 {
+            color: #763f31;
+            margin: 16px 0 10px;
+            font-size: 0.95rem;
+        }
+        
+        /* PRODUCT TABLE */
+        .product-table-wrapper {
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .product-table th {
+            background: #fcf3ef;
+            color: #763f31;
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #f5dbd2;
+            white-space: nowrap;
+        }
+        .product-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #f5dbd2;
+            vertical-align: middle;
+        }
+        .product-table tr:hover td {
+            background: #fcf8f6;
+        }
+        .product-table .product-img-small {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #fce9e2;
+        }
+        .product-table .product-img-placeholder {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fce9e2;
+            border-radius: 12px;
+            font-size: 1.5rem;
+        }
+        .product-table .category-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .category-bags {
+            background: #d4edda;
+            color: #1e6b3b;
+        }
+        .category-dresses {
+            background: #f3d4d4;
+            color: #8f3a2e;
+        }
+        .product-table .status-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .status-instock {
+            background: #d4edda;
+            color: #1e6b3b;
+        }
+        .status-outofstock {
+            background: #f8dddd;
+            color: #a83f3f;
+        }
+        .product-table .action-btns {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .product-table .action-btns button {
+            padding: 4px 12px;
+            border-radius: 60px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-toggle {
+            background: #f0d6ce;
+            color: #3f2a24;
+        }
+        .btn-toggle.instock {
+            background: #b9dfc7;
+            color: #175232;
+        }
+        .btn-toggle.outofstock {
+            background: #f3c8c0;
+            color: #8f3a2e;
+        }
+        .btn-toggle:hover {
+            filter: brightness(0.92);
+            transform: scale(0.96);
+        }
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+        }
+        .btn-delete:hover {
+            background: #c0392b;
+            transform: scale(0.96);
+        }
+        .btn-edit {
+            background: #3498db;
+            color: white;
+        }
+        .btn-edit:hover {
+            background: #2980b9;
+            transform: scale(0.96);
+        }
+
+        /* FILTERS */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+        .filter-bar select,
+        .filter-bar input {
+            padding: 8px 16px;
+            border-radius: 60px;
+            border: 1px solid #e5cbc2;
+            background: #fcf3ef;
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+        }
+        .filter-bar select:focus,
+        .filter-bar input:focus {
+            outline: none;
+            border-color: #d67a62;
+        }
+        .filter-bar .search-box {
+            flex: 1;
+            min-width: 150px;
+        }
+        .filter-bar .search-box input {
+            width: 100%;
+        }
+        .filter-count {
+            color: #763f31;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .filter-bar .action-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .btn-refresh {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.85rem;
+        }
+        .btn-refresh:hover {
+            background: #2980b9;
+            transform: scale(0.96);
+        }
+        .btn-undo {
+            background: #f39c12;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.85rem;
+            display: none;
+        }
+        .btn-undo.show {
+            display: inline-block;
+        }
+        .btn-undo:hover {
+            background: #e67e22;
+            transform: scale(0.96);
+        }
+
+        /* FILE DROP */
+        .file-drop {
+            border: 2px dashed #dba392;
+            border-radius: 28px;
+            padding: 20px;
+            text-align: center;
+            background: #fcf3ef;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .file-drop:hover {
+            background: #fae8e1;
+            border-color: #b4644c;
+        }
+        .file-drop i {
+            font-size: 2.2rem;
+            color: #b85f48;
+        }
+        .file-drop p {
+            margin: 6px 0 2px;
+            font-weight: 500;
+        }
+        .file-drop span {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .file-list {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            background: #fcf3ef;
+            padding: 10px 16px;
+            border-radius: 40px;
+            min-height: 40px;
+        }
+        .admin-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5dbd2;
+        }
+        .admin-item:last-child {
+            border-bottom: 0;
+        }
+        .admin-item .info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+        }
+        .admin-item .info .name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .admin-item .info .price {
+            font-size: 0.85rem;
+            color: #7f4d3d;
+        }
+        .admin-item .info .category {
+            font-size: 0.75rem;
+            color: #b85f48;
+            background: #f0d6ce;
+            padding: 0 10px;
+            border-radius: 30px;
+            margin-top: 2px;
+        }
+        .admin-item .actions {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .add-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .add-form input,
+        .add-form textarea,
+        .add-form select {
+            padding: 10px 16px;
+            border-radius: 60px;
+            border: 1px solid #e5cbc2;
+            background: #fcf3ef;
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+        }
+        .add-form input:focus,
+        .add-form textarea:focus,
+        .add-form select:focus {
+            outline: none;
+            border-color: #d67a62;
+        }
+        .add-form textarea {
+            border-radius: 20px;
+            resize: vertical;
+            min-height: 60px;
+        }
+        .add-form button {
+            background: #be7863;
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 10px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        .add-form button:hover {
+            background: #a55d49;
+            transform: scale(0.98);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #be7863;
+            padding: 6px 16px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: #573a31;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-outline:hover {
+            background: #be7863;
+            color: white;
+        }
+        .btn-danger {
+            background: transparent;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+        }
+        .btn-danger:hover {
+            background: #e74c3c;
+            color: white;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .status-msg {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: #d4edda;
+            color: #1e6b3b;
+            text-align: center;
+            margin: 10px 0;
+            display: none;
+            font-weight: 600;
+        }
+        .status-msg.show {
+            display: block;
+        }
+        .status-msg.error {
+            background: #f8dddd;
+            color: #a83f3f;
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #2d1f1b;
+            color: #fef6f2;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .footer-section h3 {
+            color: #d67a62;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .footer-section p,
+        .footer-section a {
+            color: #e0d6d2;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+        }
+        .footer-section a:hover {
+            color: #d67a62;
+            padding-left: 5px;
+        }
+        .footer-section .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .footer-section .social-icons a {
+            font-size: 1.5rem;
+            color: #e0d6d2;
+            transition: 0.3s;
+        }
+        .footer-section .social-icons a:hover {
+            color: #d67a62;
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #4a3530;
+            color: #a08a84;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 12px; }
+            .admin-section { padding: 20px 16px; }
+            .admin-header { flex-direction: column; gap: 12px; text-align: center; }
+            .admin-stats { grid-template-columns: repeat(2, 1fr); }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-bar .search-box { min-width: auto; }
+            .filter-bar .action-buttons { justify-content: center; }
+            .product-table th, .product-table td { padding: 8px 10px; font-size: 0.8rem; }
+            .product-table .action-btns button { font-size: 0.6rem; padding: 3px 8px; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .logo { font-size: 1.5rem; }
+            .logo img { height: 35px; width: 35px; }
+            .nav a { font-size: 0.8rem; padding: 4px 10px; }
+            .admin-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .stat-card { padding: 12px; }
+            .stat-card .number { font-size: 1.5rem; }
+            .footer-content { grid-template-columns: 1fr; }
+            .product-table th, .product-table td { padding: 6px 8px; font-size: 0.7rem; }
+            .product-table .product-img-small { width: 35px; height: 35px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="logo.jpeg" alt="Juicy Fashion" onerror="this.style.display='none'">
+                <span><i class="fas fa-crown"></i> Juicy Fashion</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="news.html">News</a>
+                <a href="contact.html">Contact</a>
+                <a href="admin.html" class="active">Admin</a>
+                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </nav>
+        </header>
+
+        <div class="admin-section">
+            <div class="admin-header">
+                <h2><i class="fas fa-user-cog"></i> Admin Dashboard</h2>
+                <a href="index.html" class="back-link" style="color:#763f31; text-decoration:none; transition:0.3s;"><i class="fas fa-arrow-left"></i> Back to Store</a>
+            </div>
+
+            <div id="statusMsg" class="status-msg">✅ Action completed successfully!</div>
+
+            <!-- STATS -->
+            <div class="admin-stats" id="statsContainer">
+                <div class="stat-card">
+                    <div class="number" id="totalProducts">0</div>
+                    <div class="label">📦 Total Products</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="inStockCount">0</div>
+                    <div class="label">✅ In Stock</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="outOfStockCount">0</div>
+                    <div class="label">❌ Out of Stock</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="bagsCount">0</div>
+                    <div class="label">👜 Bags</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="dressesCount">0</div>
+                    <div class="label">👗 Dresses</div>
+                </div>
+            </div>
+
+            <!-- ADMIN GRID -->
+            <div class="admin-grid">
+                <!-- LEFT: PRODUCT TABLE -->
+                <div class="admin-card">
+                    <h3><i class="fas fa-table"></i> All Products</h3>
+                    
+                    <!-- Filters -->
+                    <div class="filter-bar">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="🔍 Search products..." />
+                        </div>
+                        <select id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            <option value="bags">👜 Bags</option>
+                            <option value="dresses">👗 Dresses</option>
+                        </select>
+                        <select id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="instock">✅ In Stock</option>
+                            <option value="outofstock">❌ Out of Stock</option>
+                        </select>
+                        <div class="action-buttons">
+                            <button class="btn-refresh" onclick="refreshData()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                            <button class="btn-undo" id="undoBtn" onclick="undoDelete()"><i class="fas fa-undo"></i> Undo</button>
+                        </div>
+                    </div>
+
+                    <!-- Filter Count -->
+                    <div class="filter-count" id="filterCount">Showing: 0 items</div>
+
+                    <!-- Product Table -->
+                    <div class="product-table-wrapper">
+                        <table class="product-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price (UGX)</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTableBody">
+                                <!-- Rendered by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- RIGHT: ADD PRODUCT + GALLERY + NEWS -->
+                <div class="admin-card">
+                    <h3><i class="fas fa-plus-circle"></i> Add New Product</h3>
+                    <div class="add-form" id="addProductForm">
+                        <input type="text" id="productName" placeholder="Item name" required />
+                        <input type="number" id="productPrice" placeholder="Price (UGX)" required />
+                        <select id="productCategory">
+                            <option value="bags">👜 Bags</option>
+                            <option value="dresses">👗 Dresses</option>
+                        </select>
+                        <input type="text" id="productEmoji" placeholder="Emoji (optional)" value="👗" />
+                        <div class="file-drop" id="adminFileDrop" style="padding:12px; border-radius:60px;">
+                            <i class="fas fa-camera"></i> Click to upload image
+                            <input type="file" id="adminProductImage" accept="image/*" style="display:none;" />
+                        </div>
+                        <button type="button" id="addProductBtn" style="background:#b85f48;">➕ Add Product</button>
+                    </div>
+
+                    <h3 style="margin-top:24px;"><i class="fas fa-images"></i> Gallery Management</h3>
+                    <div class="file-drop" id="galleryFileDrop">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Upload gallery images</p>
+                        <span>click or drag & drop</span>
+                        <input type="file" id="galleryFileInput" multiple accept="image/*" style="display:none;" />
+                    </div>
+                    <div class="file-list" id="galleryFileList"><i class="fas fa-image"></i> No gallery images</div>
+                    <div id="galleryAdminList" style="margin-top:12px;"></div>
+
+                    <h3 style="margin-top:24px;"><i class="fas fa-newspaper"></i> News Management</h3>
+                    <div class="add-form" id="addNewsForm">
+                        <input type="text" id="newsTitle" placeholder="News title" required />
+                        <textarea id="newsContent" placeholder="News content..." rows="3" required></textarea>
+                        <button type="button" id="addNewsBtn" style="background:#b85f48;">📰 Add News</button>
+                    </div>
+                    <div id="newsAdminList" style="margin-top:12px;"></div>
+
+                    <div class="btn-group">
+                        <button class="btn-outline" id="resetDefaultsBtn" style="font-size:0.75rem;">↺ Reset All</button>
+                        <button class="btn-outline btn-danger" id="clearGalleryBtn" style="font-size:0.75rem;">🗑 Clear Gallery</button>
+                        <button class="btn-outline btn-danger" id="clearNewsBtn" style="font-size:0.75rem;">🗑 Clear News</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-crown"></i> Juicy Fashion</h3>
+                <p>Your go-to destination for modern, feminine fashion in Uganda.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="news.html">News</a>
+                <a href="contact.html">Contact</a>
+                <a href="admin.html">Admin</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <a href="https://wa.me/254744366251" target="_blank"><i class="fas fa-phone"></i> 0744366251</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juicyfashioncloset@gmail.com" target="_blank"><i class="fas fa-envelope"></i> juicyfashioncloset@gmail.com</a>
+                <p><i class="fas fa-map-marker-alt"></i> Kampala, Uganda</p>
+            </div>
+            <div class="footer-section">
+                <h3>Working Hours</h3>
+                <p>Mon - Fri: 8:00 AM - 6:00 PM</p>
+                <p>Saturday: 9:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Juicy Fashion Closet. All rights reserved. | Made with <i class="fas fa-heart" style="color:#d67a62;"></i> in Uganda
+        </div>
+    </footer>
+
+    <script>
+        // ---------- STORAGE KEYS ----------
+        const STORAGE_KEYS = {
+            PRODUCTS: 'juicy_products',
+            GALLERY: 'juicy_gallery',
+            NEWS: 'juicy_news',
+            SESSION: 'juicy_session'
+        };
+
+        // ---------- DEFAULT DATA ----------
+        const DEFAULT_DATA = {
+            products: [
+                { id: 1, name: 'Premium Tote Bag', price: 45000, status: 'instock', category: 'bags', image: 'bag1.jpeg' },
+                { id: 2, name: 'Designer Handbag', price: 55000, status: 'instock', category: 'bags', image: 'bag2.jpeg' },
+                { id: 3, name: 'Chic Shoulder Bag', price: 38000, status: 'instock', category: 'bags', image: 'bag3.jpeg' },
+                { id: 4, name: 'Trendy Tote', price: 42000, status: 'instock', category: 'bags', image: 'bag4.jpeg' },
+                { id: 5, name: 'Classic Leather Bag', price: 65000, status: 'instock', category: 'bags', image: 'bag5.jpeg' },
+                { id: 6, name: 'Statement Clutch', price: 35000, status: 'instock', category: 'bags', image: 'bag6.jpeg' },
+                { id: 7, name: 'Elegant Evening Bag', price: 48000, status: 'instock', category: 'bags', image: 'bag7.jpeg' },
+                { id: 8, name: 'Stylish Crossbody', price: 40000, status: 'instock', category: 'bags', image: 'bag8.jpeg' },
+                { id: 9, name: 'Luxury Tote', price: 72000, status: 'outofstock', category: 'bags', image: 'bag9.jpeg' },
+                { id: 10, name: 'Mini Bag', price: 28000, status: 'instock', category: 'bags', image: 'bag10.jpeg' },
+                { id: 11, name: 'Oversized Tote', price: 58000, status: 'instock', category: 'bags', image: 'bag11.jpeg' },
+                { id: 12, name: 'Black Striped Dress', price: 89000, status: 'instock', category: 'dresses', image: 'black armed strips.jpeg' },
+                { id: 13, name: 'Black Short Dress', price: 75000, status: 'instock', category: 'dresses', image: 'black short dress.jpeg' },
+                { id: 14, name: 'Leopard Long Dress', price: 120000, status: 'instock', category: 'dresses', image: 'leopard long.jpeg' },
+                { id: 15, name: 'Leopard Short Dress', price: 95000, status: 'instock', category: 'dresses', image: 'leopard short.jpeg' },
+                { id: 16, name: 'Maroon Dress', price: 82000, status: 'instock', category: 'dresses', image: 'maroon.jpeg' },
+                { id: 17, name: 'Red Dress Slit', price: 110000, status: 'instock', category: 'dresses', image: 'red dress slit.jpeg' },
+                { id: 18, name: 'Red Dress', price: 78000, status: 'instock', category: 'dresses', image: 'red.jpeg' },
+                { id: 19, name: 'Short Dress', price: 65000, status: 'instock', category: 'dresses', image: 'short dress.jpeg' },
+                { id: 20, name: 'White Dress', price: 88000, status: 'instock', category: 'dresses', image: 'white.jpeg' },
+                { id: 21, name: 'Mirror Dress', price: 99000, status: 'instock', category: 'dresses', image: 'mirror.jpeg' },
+                { id: 22, name: 'Leopard 3 Dress', price: 105000, status: 'outofstock', category: 'dresses', image: 'leopard 3.jpeg' },
+            ],
+            gallery: [
+                'bag1.jpeg', 'bag2.jpeg', 'bag3.jpeg', 'bag4.jpeg', 'bag5.jpeg',
+                'bag6.jpeg', 'bag7.jpeg', 'bag8.jpeg', 'bag9.jpeg', 'bag10.jpeg',
+                'bag11.jpeg', 'mirror.jpeg', 'red dress slit.jpeg', 'red.jpeg',
+                'short dress.jpeg', 'white.jpeg'
+            ],
+            news: [
+                { id: 1, title: '🎉 Welcome to Juicy Fashion Closet!', content: 'We are excited to launch our new collection of modern dresses and bags. Stay tuned for exclusive offers!', date: '2026-08-20' },
+                { id: 2, title: '🌸 Summer Collection Now Available', content: 'Our new summer collection features vibrant colors and lightweight fabrics perfect for the warm weather. Shop now!', date: '2026-08-18' },
+                { id: 3, title: '💝 Customer Appreciation Week', content: 'Enjoy 15% off on all items this week as a thank you for being part of the Juicy Fashion family.', date: '2026-08-15' },
+            ]
+        };
+
+        // ---------- UNDO SYSTEM ----------
+        let deletedProduct = null;
+        let lastAction = null;
+
+        // ---------- DATA MANAGEMENT ----------
+        let data = {};
+
+        function loadData() {
+            let products = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
+            if (products) {
+                try { products = JSON.parse(products); } 
+                catch (e) { products = JSON.parse(JSON.stringify(DEFAULT_DATA.products)); }
+            } else {
+                products = JSON.parse(JSON.stringify(DEFAULT_DATA.products));
+            }
+            products = products.map(p => ({ ...p, image: p.image || '' }));
+
+            let gallery = localStorage.getItem(STORAGE_KEYS.GALLERY);
+            if (gallery) {
+                try { gallery = JSON.parse(gallery); } 
+                catch (e) { gallery = [...DEFAULT_DATA.gallery]; }
+            } else {
+                gallery = [...DEFAULT_DATA.gallery];
+            }
+
+            let news = localStorage.getItem(STORAGE_KEYS.NEWS);
+            if (news) {
+                try { news = JSON.parse(news); } 
+                catch (e) { news = JSON.parse(JSON.stringify(DEFAULT_DATA.news)); }
+            } else {
+                news = JSON.parse(JSON.stringify(DEFAULT_DATA.news));
+            }
+
+            data = { products, gallery, news };
+            return data;
+        }
+
+        function saveData() {
+            localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(data.products));
+            localStorage.setItem(STORAGE_KEYS.GALLERY, JSON.stringify(data.gallery));
+            localStorage.setItem(STORAGE_KEYS.NEWS, JSON.stringify(data.news));
+        }
+
+        // ---------- SESSION ----------
+        function checkSession() {
+            const session = localStorage.getItem(STORAGE_KEYS.SESSION);
+            if (session !== 'true') {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        function logout() {
+            localStorage.removeItem(STORAGE_KEYS.SESSION);
+            window.location.href = 'index.html';
+        }
+
+        // ---------- REFRESH ----------
+        function refreshData() {
+            loadData();
+            renderAll();
+            showStatus('🔄 Data refreshed successfully!');
+        }
+
+        // ---------- UNDO DELETE ----------
+        function undoDelete() {
+            if (deletedProduct) {
+                data.products.push(deletedProduct);
+                saveData();
+                renderAll();
+                showStatus(`↩️ Restored: ${deletedProduct.name}`);
+                deletedProduct = null;
+                document.getElementById('undoBtn').classList.remove('show');
+            } else {
+                showStatus('❌ Nothing to undo.', true);
+            }
+        }
+
+        // ---------- RENDER FUNCTIONS ----------
+        function renderStats() {
+            const total = data.products.length;
+            const inStock = data.products.filter(p => p.status === 'instock').length;
+            const outOfStock = data.products.filter(p => p.status === 'outofstock').length;
+            const bags = data.products.filter(p => p.category === 'bags').length;
+            const dresses = data.products.filter(p => p.category === 'dresses').length;
+
+            document.getElementById('totalProducts').textContent = total;
+            document.getElementById('inStockCount').textContent = inStock;
+            document.getElementById('outOfStockCount').textContent = outOfStock;
+            document.getElementById('bagsCount').textContent = bags;
+            document.getElementById('dressesCount').textContent = dresses;
+        }
+
+        function renderProductTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            let filtered = data.products.filter(p => {
+                const matchSearch = p.name.toLowerCase().includes(searchTerm);
+                const matchCategory = categoryFilter === 'all' || p.category === categoryFilter;
+                const matchStatus = statusFilter === 'all' || p.status === statusFilter;
+                return matchSearch && matchCategory && matchStatus;
+            });
+
+            const tbody = document.getElementById('productTableBody');
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:#8f6b61;">No products found matching your criteria.</td></tr>`;
+            } else {
+                tbody.innerHTML = filtered.map(p => {
+                    const imgHtml = p.image ? 
+                        `<img src="${p.image}" alt="${p.name}" class="product-img-small" onerror="this.parentElement.innerHTML='<div class=\\'product-img-placeholder\\'>${p.category === 'bags' ? '👜' : '👗'}</div>'">` :
+                        `<div class="product-img-placeholder">${p.category === 'bags' ? '👜' : '👗'}</div>`;
+                    const categoryClass = p.category === 'bags' ? 'category-bags' : 'category-dresses';
+                    const categoryLabel = p.category === 'bags' ? '👜 Bag' : '👗 Dress';
+                    const statusClass = p.status === 'instock' ? 'status-instock' : 'status-outofstock';
+                    const statusLabel = p.status === 'instock' ? '✅ In Stock' : '❌ Out of Stock';
+                    const priceFormatted = Number(p.price).toLocaleString();
+                    return `
+                        <tr>
+                            <td>${imgHtml}</td>
+                            <td><strong>${p.name}</strong></td>
+                            <td><span class="category-badge ${categoryClass}">${categoryLabel}</span></td>
+                            <td>UGX ${priceFormatted}</td>
+                            <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn-toggle ${p.status === 'instock' ? 'instock' : 'outofstock'}" data-id="${p.id}">
+                                        ${p.status === 'instock' ? 'In stock' : 'Out of stock'}
+                                    </button>
+                                    <button class="btn-delete" data-id="${p.id}"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            document.getElementById('filterCount').textContent = `Showing: ${filtered.length} items`;
+
+            // Attach event listeners
+            document.querySelectorAll('#productTableBody .btn-toggle').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.dataset.id);
+                    const product = data.products.find(p => p.id === id);
+                    if (product) {
+                        product.status = product.status === 'instock' ? 'outofstock' : 'instock';
+                        saveData();
+                        renderAll();
+                        showStatus('✅ Stock status updated!');
+                    }
+                });
+            });
+
+            document.querySelectorAll('#productTableBody .btn-delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.dataset.id);
+                    const product = data.products.find(p => p.id === id);
+                    if (product && confirm(`Delete "${product.name}" permanently?`)) {
+                        // Store for undo
+                        deletedProduct = { ...product };
+                        lastAction = 'delete';
+                        
+                        // Remove from data
+                        data.products = data.products.filter(p => p.id !== id);
+                        saveData();
+                        renderAll();
+                        
+                        // Show undo button
+                        document.getElementById('undoBtn').classList.add('show');
+                        showStatus(`🗑️ "${deletedProduct.name}" deleted. Click Undo to restore.`);
+                    }
+                });
+            });
+        }
+
+        function renderAdminGallery() {
+            const adminList = document.getElementById('galleryAdminList');
+            if (!adminList) return;
+
+            if (data.gallery.length === 0) {
+                adminList.innerHTML = `<p style="opacity:0.6; font-size:0.9rem;">No images in gallery.</p>`;
+            } else {
+                adminList.innerHTML = data.gallery.map((img, index) => {
+                    const src = img.startsWith('data:') ? img.substring(0, 40) + '...' : img;
+                    return `
+                        <div class="admin-item">
+                            <span style="font-size:0.85rem; flex:1; overflow:hidden; text-overflow:ellipsis;">📷 ${src}</span>
+                            <button class="delete-btn" data-index="${index}" title="Remove" style="padding:5px 10px; border-radius:60px; border:none; background:#e74c3c; color:white; font-weight:600; font-size:0.7rem; cursor:pointer; transition:0.3s;"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                }).join('');
+
+                document.querySelectorAll('#galleryAdminList .delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        if (confirm('Remove this image from gallery?')) {
+                            data.gallery.splice(index, 1);
+                            saveData();
+                            renderAll();
+                            showStatus('✅ Image removed from gallery!');
+                        }
+                    });
+                });
+            }
+
+            const list = document.getElementById('galleryFileList');
+            if (list) {
+                list.innerHTML = `<i class="fas fa-check-circle" style="color:#b85f48;"></i> ${data.gallery.length} image(s) in gallery.`;
+            }
+        }
+
+        function renderAdminNews() {
+            const adminList = document.getElementById('newsAdminList');
+            if (!adminList) return;
+
+            if (data.news.length === 0) {
+                adminList.innerHTML = `<p style="opacity:0.6; font-size:0.9rem;">No news items.</p>`;
+            } else {
+                adminList.innerHTML = data.news.map((n, index) => `
+                    <div class="admin-item">
+                        <div class="info">
+                            <span class="name">${n.title}</span>
+                            <span class="price">${n.date}</span>
+                        </div>
+                        <button class="delete-btn" data-index="${index}" title="Delete" style="padding:5px 10px; border-radius:60px; border:none; background:#e74c3c; color:white; font-weight:600; font-size:0.7rem; cursor:pointer; transition:0.3s;"><i class="fas fa-trash"></i></button>
+                    </div>
+                `).join('');
+
+                document.querySelectorAll('#newsAdminList .delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        if (confirm('Delete this news item?')) {
+                            data.news.splice(index, 1);
+                            saveData();
+                            renderAll();
+                            showStatus('✅ News deleted successfully!');
+                        }
+                    });
+                });
+            }
+        }
+
+        function renderAll() {
+            renderStats();
+            renderProductTable();
+            renderAdminGallery();
+            renderAdminNews();
+        }
+
+        // ---------- STATUS MESSAGE ----------
+        function showStatus(message, isError = false) {
+            const el = document.getElementById('statusMsg');
+            el.textContent = message;
+            el.className = 'status-msg show';
+            if (isError) el.classList.add('error');
+            setTimeout(() => el.classList.remove('show'), 4000);
+        }
+
+        // ---------- ADD PRODUCT ----------
+        function addProduct(name, price, category, emoji, imageDataUrl) {
+            if (!name || !price || isNaN(price) || price <= 0) {
+                showStatus('❌ Please enter a valid name and price.', true);
+                return false;
+            }
+            const newId = data.products.length ? Math.max(...data.products.map(p => p.id)) + 1 : 1;
+            data.products.push({
+                id: newId,
+                name: name.trim(),
+                price: Number(price),
+                status: 'instock',
+                category: category || 'dresses',
+                emoji: emoji.trim() || '👗',
+                image: imageDataUrl || ''
+            });
+            saveData();
+            renderAll();
+            showStatus('✅ Product added successfully!');
+            return true;
+        }
+
+        // ---------- ADD NEWS ----------
+        function addNews(title, content) {
+            if (!title || !content) {
+                showStatus('❌ Please enter both title and content.', true);
+                return false;
+            }
+            const newId = data.news.length ? Math.max(...data.news.map(n => n.id)) + 1 : 1;
+            const today = new Date().toISOString().split('T')[0];
+            data.news.push({
+                id: newId,
+                title: title.trim(),
+                content: content.trim(),
+                date: today
+            });
+            saveData();
+            renderAll();
+            showStatus('✅ News added successfully!');
+            return true;
+        }
+
+        // ---------- RESET / CLEAR ----------
+        function resetAll() {
+            if (confirm('Reset all data to default? (your changes will be lost)')) {
+                data.products = JSON.parse(JSON.stringify(DEFAULT_DATA.products));
+                data.gallery = [...DEFAULT_DATA.gallery];
+                data.news = JSON.parse(JSON.stringify(DEFAULT_DATA.news));
+                saveData();
+                renderAll();
+                showStatus('✅ Reset to defaults complete!');
+                document.getElementById('undoBtn').classList.remove('show');
+                deletedProduct = null;
+            }
+        }
+
+        function clearGallery() {
+            if (confirm('Remove all gallery images?')) {
+                data.gallery = [];
+                saveData();
+                renderAll();
+                showStatus('✅ Gallery cleared!');
+            }
+        }
+
+        function clearNews() {
+            if (confirm('Remove all news items?')) {
+                data.news = [];
+                saveData();
+                renderAll();
+                showStatus('✅ News cleared!');
+            }
+        }
+
+        // ---------- FILTER EVENT LISTENERS ----------
+        function setupFilters() {
+            document.getElementById('searchInput').addEventListener('input', renderProductTable);
+            document.getElementById('categoryFilter').addEventListener('change', renderProductTable);
+            document.getElementById('statusFilter').addEventListener('change', renderProductTable);
+        }
+
+        // ---------- INIT ----------
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check session
+            if (!checkSession()) return;
+
+            // Load data
+            loadData();
+            renderAll();
+            setupFilters();
+
+            // ---- ADD PRODUCT ----
+            document.getElementById('addProductBtn').addEventListener('click', function() {
+                const name = document.getElementById('productName').value;
+                const price = document.getElementById('productPrice').value;
+                const category = document.getElementById('productCategory').value;
+                const emoji = document.getElementById('productEmoji').value;
+                const fileInput = document.getElementById('adminProductImage');
+
+                if (fileInput.files && fileInput.files.length > 0) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        if (addProduct(name, price, category, emoji, e.target.result)) {
+                            document.getElementById('productName').value = '';
+                            document.getElementById('productPrice').value = '';
+                            document.getElementById('productEmoji').value = '👗';
+                            fileInput.value = '';
+                        }
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                } else {
+                    if (addProduct(name, price, category, emoji, '')) {
+                        document.getElementById('productName').value = '';
+                        document.getElementById('productPrice').value = '';
+                        document.getElementById('productEmoji').value = '👗';
+                    }
+                }
+            });
+
+            // ---- PRODUCT IMAGE UPLOAD TRIGGER ----
+            document.getElementById('adminFileDrop').addEventListener('click', function() {
+                document.getElementById('adminProductImage').click();
+            });
+
+            // ---- GALLERY UPLOAD ----
+            const galleryFileInput = document.getElementById('galleryFileInput');
+            const galleryDrop = document.getElementById('galleryFileDrop');
+
+            function handleGalleryFiles(files) {
+                if (!files || files.length === 0) return;
+                Array.from(files).forEach(file => {
+                    if (!file.type.startsWith('image/')) return;
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        data.gallery.push(e.target.result);
+                        saveData();
+                        renderAll();
+                        showStatus('✅ Gallery image uploaded!');
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            galleryDrop.addEventListener('click', function() {
+                galleryFileInput.click();
+            });
+
+            galleryFileInput.addEventListener('change', function(e) {
+                handleGalleryFiles(e.target.files);
+                this.value = '';
+            });
+
+            galleryDrop.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                galleryDrop.style.borderColor = '#b4644c';
+                galleryDrop.style.background = '#fae8e1';
+            });
+            galleryDrop.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                galleryDrop.style.borderColor = '#dba392';
+                galleryDrop.style.background = '#fcf3ef';
+            });
+            galleryDrop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                galleryDrop.style.borderColor = '#dba392';
+                galleryDrop.style.background = '#fcf3ef';
+                if (e.dataTransfer.files) {
+                    handleGalleryFiles(e.dataTransfer.files);
+                }
+            });
+
+            // ---- ADD NEWS ----
+            document.getElementById('addNewsBtn').addEventListener('click', function() {
+                const title = document.getElementById('newsTitle').value;
+                const content = document.getElementById('newsContent').value;
+                if (addNews(title, content)) {
+                    document.getElementById('newsTitle').value = '';
+                    document.getElementById('newsContent').value = '';
+                }
+            });
+
+            // ---- RESET / CLEAR ----
+            document.getElementById('resetDefaultsBtn').addEventListener('click', resetAll);
+            document.getElementById('clearGalleryBtn').addEventListener('click', clearGallery);
+            document.getElementById('clearNewsBtn').addEventListener('click', clearNews);
+        });
+    </script>
+</body>
+</html>

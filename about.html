@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍑 Juicy Fashion Closet - About</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fef6f2;
+            color: #2d1f1b;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #fad5cd;
+            background: rgba(255, 248, 245, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #b34a3c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .logo img {
+            height: 45px;
+            width: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #d67a62;
+        }
+        .logo i {
+            color: #d67a62;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4f3630;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .nav a:hover,
+        .nav a.active {
+            background: #d67a62;
+            color: white;
+        }
+        .nav .login-btn {
+            background: #d67a62;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .nav .login-btn:hover {
+            background: #b85f48;
+        }
+        .about-content {
+            background: white;
+            border-radius: 40px;
+            padding: 40px;
+            margin: 30px 0;
+            border: 1px solid #fad2c6;
+            box-shadow: 0 8px 20px rgba(190, 100, 80, 0.06);
+        }
+        .about-content h2 {
+            color: #763f31;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            color: #3d2b26;
+        }
+        .about-content .highlight {
+            font-weight: 600;
+            color: #b34a3c;
+            font-size: 1.2rem;
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: #fcf3ef;
+            padding: 20px;
+            border-radius: 24px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #d67a62;
+        }
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: #763f31;
+        }
+        .contact-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px 50px;
+            background: #ffe8e0;
+            padding: 16px 30px;
+            border-radius: 80px;
+            margin: 20px 0 30px;
+            border: 1px solid #fbcbbd;
+        }
+        .contact-strip a {
+            text-decoration: none;
+            color: #3d2b26;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+        }
+        .contact-strip a i {
+            font-size: 1.7rem;
+            color: #b85f48;
+        }
+        .contact-strip a:hover {
+            color: #a1452f;
+        }
+        .footer {
+            background: #2d1f1b;
+            color: #fef6f2;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .footer-section h3 {
+            color: #d67a62;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .footer-section p,
+        .footer-section a {
+            color: #e0d6d2;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+        }
+        .footer-section a:hover {
+            color: #d67a62;
+            padding-left: 5px;
+        }
+        .footer-section .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .footer-section .social-icons a {
+            font-size: 1.5rem;
+            color: #e0d6d2;
+            transition: 0.3s;
+        }
+        .footer-section .social-icons a:hover {
+            color: #d67a62;
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #4a3530;
+            color: #a08a84;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 12px; }
+            .about-content { padding: 20px; }
+            .about-content h2 { font-size: 1.8rem; }
+            .about-stats { grid-template-columns: 1fr 1fr; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .logo { font-size: 1.5rem; }
+            .nav a { font-size: 0.8rem; padding: 4px 10px; }
+            .contact-strip { flex-direction: column; align-items: center; gap: 12px; }
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="logo.jpeg" alt="Juicy Fashion" onerror="this.style.display='none'">
+                <span><i class="fas fa-crown"></i> Juicy Fashion</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="about.html" class="active">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="news.html">News</a>
+                <a href="admin.html">Admin</a>
+                <button class="login-btn" onclick="window.location.href='login.html'"><i class="fas fa-user"></i> Login</button>
+            </nav>
+        </header>
+
+        <div class="about-content">
+            <h2><i class="fas fa-heart" style="color:#d67a62;"></i> About Juicy Fashion Closet</h2>
+            <p>Welcome to <strong>Juicy Fashion Closet</strong> – your go-to destination for modern, feminine fashion in Uganda. We curate the finest dresses and ladies' bags that blend contemporary style with timeless elegance.</p>
+            <p>Founded with a passion for fashion, we believe every woman deserves to feel confident and beautiful. Our collections are handpicked to bring you the latest trends with a touch of juicy personality.</p>
+            <p><i class="fas fa-map-pin" style="color:#b85f48;"></i> Located in Kampala, we serve fashion lovers across Uganda and beyond. We're committed to quality, style, and making you shine.</p>
+
+            <div class="about-stats">
+                <div class="stat-card">
+                    <div class="number">22+</div>
+                    <div class="label">Products</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">2</div>
+                    <div class="label">Categories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">100%</div>
+                    <div class="label">Quality Guarantee</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">24/7</div>
+                    <div class="label">Support</div>
+                </div>
+            </div>
+
+            <p class="highlight">🍑 Stay juicy, stay stylish!</p>
+        </div>
+
+        <div class="contact-strip">
+            <a href="https://wa.me/254744366251" target="_blank"><i class="fab fa-whatsapp"></i> 0744366251</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juicyfashioncloset@gmail.com" target="_blank">
+                <i class="fas fa-envelope"></i> juicyfashioncloset@gmail.com
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-crown"></i> Juicy Fashion</h3>
+                <p>Your go-to destination for modern, feminine fashion in Uganda.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="news.html">News</a>
+                <a href="admin.html">Admin</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <a href="https://wa.me/254744366251"><i class="fas fa-phone"></i> 0744366251</a>
+               <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juicyfashioncloset@gmail.com" target="_blank">
+    <i class="fas fa-envelope"></i> juicyfashioncloset@gmail.com
+</a>
+                <p><i class="fas fa-map-marker-alt"></i> Kampala, Uganda</p>
+            </div>
+            <div class="footer-section">
+                <h3>Working Hours</h3>
+                <p>Mon - Fri: 8:00 AM - 6:00 PM</p>
+                <p>Saturday: 9:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Juicy Fashion Closet. All rights reserved. | Made with <i class="fas fa-heart" style="color:#d67a62;"></i> in Uganda
+        </div>
+    </footer>
+</body>
+</html>

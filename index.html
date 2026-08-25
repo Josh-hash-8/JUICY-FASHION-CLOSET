@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍑 Juicy Fashion Closet - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ... (same CSS as before) ... */
+        /* For space, I'll keep the CSS minimal here, but you can copy the full CSS from previous version */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fef6f2;
+            color: #2d1f1b;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #fad5cd;
+            background: rgba(255, 248, 245, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #b34a3c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .logo img {
+            height: 45px;
+            width: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #d67a62;
+        }
+        .logo i {
+            color: #d67a62;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4f3630;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .nav a:hover,
+        .nav a.active {
+            background: #d67a62;
+            color: white;
+        }
+        .nav .login-btn {
+            background: #d67a62;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .nav .login-btn:hover {
+            background: #b85f48;
+        }
+        .hero {
+            margin: 30px 0 40px;
+            border-radius: 40px;
+            overflow: hidden;
+            height: 480px;
+            position: relative;
+            background: #fcd9d0;
+            box-shadow: 0 12px 30px rgba(160, 80, 60, 0.15);
+        }
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            background-size: cover;
+            background-position: center;
+            padding: 30px;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-text {
+            background: rgba(255, 245, 240, 0.85);
+            backdrop-filter: blur(4px);
+            padding: 30px 60px;
+            border-radius: 60px 20px 60px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 200, 180, 0.5);
+            position: absolute;
+            z-index: 2;
+        }
+        .hero-text h2 {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #3d241e;
+        }
+        .hero-text p {
+            font-size: 1.3rem;
+            opacity: 0.8;
+        }
+        .section-title {
+            font-size: 2rem;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #763f31;
+            border-bottom: 3px solid #fad5cd;
+            padding-bottom: 10px;
+        }
+        .section-title i {
+            color: #d67a62;
+        }
+        .section-title .badge {
+            background: #d67a62;
+            color: white;
+            font-size: 0.8rem;
+            padding: 4px 14px;
+            border-radius: 30px;
+            margin-left: 10px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 30px;
+            padding: 16px 12px 20px;
+            box-shadow: 0 8px 24px rgba(180, 90, 70, 0.08);
+            border: 1px solid #fae0d8;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            border-color: #d67a62;
+            box-shadow: 0 20px 32px -12px #c9826e;
+        }
+        .product-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #fce9e2;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .product-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .product-price {
+            color: #a1432e;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 4px 0 8px;
+        }
+        .product-status {
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #e1c7bf;
+            color: #3d2b26;
+        }
+        .status-instock {
+            background: #d4edda;
+            color: #1e6b3b;
+        }
+        .status-outofstock {
+            background: #f8dddd;
+            color: #a83f3f;
+        }
+        .product-category {
+            display: inline-block;
+            font-size: 0.7rem;
+            background: #f0d6ce;
+            padding: 2px 12px;
+            border-radius: 30px;
+            color: #763f31;
+            margin-bottom: 6px;
+        }
+        .contact-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px 50px;
+            background: #ffe8e0;
+            padding: 16px 30px;
+            border-radius: 80px;
+            margin: 20px 0 30px;
+            border: 1px solid #fbcbbd;
+        }
+        .contact-strip a {
+            text-decoration: none;
+            color: #3d2b26;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+        }
+        .contact-strip a i {
+            font-size: 1.7rem;
+            color: #b85f48;
+        }
+        .contact-strip a:hover {
+            color: #a1452f;
+            transform: scale(1.02);
+        }
+        .map-wrap {
+            border-radius: 36px;
+            overflow: hidden;
+            border: 4px solid #fad9cf;
+            height: 200px;
+            margin: 20px 0 30px;
+            background: #e6cbc2;
+        }
+        .map-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .footer {
+            background: #2d1f1b;
+            color: #fef6f2;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .footer-section h3 {
+            color: #d67a62;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .footer-section p,
+        .footer-section a {
+            color: #e0d6d2;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+        }
+        .footer-section a:hover {
+            color: #d67a62;
+            padding-left: 5px;
+        }
+        .footer-section .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .footer-section .social-icons a {
+            font-size: 1.5rem;
+            color: #e0d6d2;
+            transition: 0.3s;
+        }
+        .footer-section .social-icons a:hover {
+            color: #d67a62;
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #4a3530;
+            color: #a08a84;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 12px; }
+            .hero { height: 300px; }
+            .hero-text h2 { font-size: 2rem; }
+            .hero-text p { font-size: 1rem; }
+            .hero-text { padding: 20px 30px; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .logo { font-size: 1.5rem; }
+            .logo img { height: 35px; width: 35px; }
+            .nav a { font-size: 0.8rem; padding: 4px 10px; }
+            .contact-strip { flex-direction: column; align-items: center; gap: 12px; }
+            .footer-content { grid-template-columns: 1fr; }
+            .hero { height: 250px; }
+            .hero-text h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="logo.jpeg" alt="Juicy Fashion" onerror="this.style.display='none'">
+                <span><i class="fas fa-crown"></i> Juicy Fashion</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="news.html">News</a>
+                <a href="admin.html">Admin</a>
+                <button class="login-btn" onclick="window.location.href='login.html'"><i class="fas fa-user"></i> Login</button>
+            </nav>
+        </header>
+
+        <!-- HERO SLIDESHOW -->
+        <div class="hero" id="heroSlider"></div>
+
+        <!-- BAGS SECTION -->
+        <div class="section-title">
+            <i class="fas fa-shopping-bag"></i> Bags Collection
+            <span class="badge">New Arrivals</span>
+        </div>
+        <div class="product-grid" id="bagsGrid"></div>
+
+        <!-- DRESSES SECTION -->
+        <div class="section-title">
+            <i class="fas fa-tshirt"></i> Dresses Collection
+            <span class="badge">Trending</span>
+        </div>
+        <div class="product-grid" id="dressesGrid"></div>
+
+        <!-- CONTACT - FIXED EMAIL LINK -->
+        <div class="contact-strip">
+            <a href="https://wa.me/254744366251" target="_blank"><i class="fab fa-whatsapp"></i> 0744366251</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juicyfashioncloset@gmail.com" target="_blank"><i class="fas fa-envelope"></i> juicyfashioncloset@gmail.com</a>
+        </div>
+
+        <!-- GOOGLE MAPS -->
+        <div class="map-wrap">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509437!2d144.95373531531534!3d-37.81627997975159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5df1f5b0b1%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1644262070686!5m2!1sen!2sus" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+    <!-- FOOTER - FIXED EMAIL LINK -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-crown"></i> Juicy Fashion</h3>
+                <p>Your go-to destination for modern, feminine fashion in Uganda. Quality dresses and bags for every occasion.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="news.html">News</a>
+                <a href="admin.html">Admin</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <a href="https://wa.me/254744366251" target="_blank"><i class="fas fa-phone"></i> 0744366251</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juicyfashioncloset@gmail.com" target="_blank"><i class="fas fa-envelope"></i> juicyfashioncloset@gmail.com</a>
+                <p><i class="fas fa-map-marker-alt"></i> Kampala, Uganda</p>
+            </div>
+            <div class="footer-section">
+                <h3>Working Hours</h3>
+                <p>Mon - Fri: 8:00 AM - 6:00 PM</p>
+                <p>Saturday: 9:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Juicy Fashion Closet. All rights reserved. | Made with <i class="fas fa-heart" style="color:#d67a62;"></i> in Uganda
+        </div>
+    </footer>
+
+    <script>
+        // HERO SLIDESHOW IMAGES
+        const heroImages = [
+            { image: 'bag1.jpeg', title: ' Premium Bags', subtitle: 'Stylish & elegant' },
+            { image: 'bag2.jpeg', title: ' Designer Collection', subtitle: 'Luxury at your fingertips' },
+            { image: 'bag3.jpeg', title: ' Chic & Modern', subtitle: 'Complete your look' },
+            { image: 'bag4.jpeg', title: ' Trendy Totes', subtitle: 'Shop the latest styles' },
+            { image: 'bag5.jpeg', title: ' Summer Dresses', subtitle: 'Fresh & feminine' },
+            { image: 'bag6.jpeg', title: ' Classic Bags', subtitle: 'Timeless elegance' },
+            { image: 'bag7.jpeg', title: ' Statement Pieces', subtitle: 'Make an impression' },
+            { image: 'mirror.jpeg', title: ' Mirror Collection', subtitle: 'Shine bright' },
+            { image: 'red dress slit.jpeg', title: ' Red Carpet', subtitle: 'Stunning evening wear' },
+            { image: 'white.jpeg', title: ' White Collection', subtitle: 'Pure elegance' },
+        ];
+
+        function initHero() {
+            const hero = document.getElementById('heroSlider');
+            hero.innerHTML = heroImages.map((slide, index) => `
+                <div class="hero-slide ${index === 0 ? 'active' : ''}" style="background: linear-gradient(145deg, #fcd9d0, #fbc8ba);">
+                    <img src="${slide.image}" alt="${slide.title}" onerror="this.style.display='none'">
+                    <div class="hero-text">
+                        <h2>${slide.title}</h2>
+                        <p>${slide.subtitle}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            let slideIndex = 0;
+            const slides = document.querySelectorAll('.hero-slide');
+
+            function showSlide(idx) {
+                slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+            }
+
+            function nextSlide() {
+                slideIndex = (slideIndex + 1) % slides.length;
+                showSlide(slideIndex);
+            }
+            setInterval(nextSlide, 4000);
+        }
+
+        // PRODUCT DATA
+        const products = [
+            { id: 1, name: 'Premium Tote Bag', price: 45000, status: 'instock', category: 'bags', image: 'bag1.jpeg' },
+            { id: 2, name: 'Designer Handbag', price: 55000, status: 'instock', category: 'bags', image: 'bag2.jpeg' },
+            { id: 3, name: 'Chic Shoulder Bag', price: 38000, status: 'instock', category: 'bags', image: 'bag3.jpeg' },
+            { id: 4, name: 'Trendy Tote', price: 42000, status: 'instock', category: 'bags', image: 'bag4.jpeg' },
+            { id: 5, name: 'Classic Leather Bag', price: 65000, status: 'instock', category: 'bags', image: 'bag5.jpeg' },
+            { id: 6, name: 'Statement Clutch', price: 35000, status: 'instock', category: 'bags', image: 'bag6.jpeg' },
+            { id: 7, name: 'Elegant Evening Bag', price: 48000, status: 'instock', category: 'bags', image: 'bag7.jpeg' },
+            { id: 8, name: 'Stylish Crossbody', price: 40000, status: 'instock', category: 'bags', image: 'bag8.jpeg' },
+            { id: 9, name: 'Luxury Tote', price: 72000, status: 'outofstock', category: 'bags', image: 'bag9.jpeg' },
+            { id: 10, name: 'Mini Bag', price: 28000, status: 'instock', category: 'bags', image: 'bag10.jpeg' },
+            { id: 11, name: 'Oversized Tote', price: 58000, status: 'instock', category: 'bags', image: 'bag11.jpeg' },
+            { id: 12, name: 'Black Striped Dress', price: 89000, status: 'instock', category: 'dresses', image: 'black armed strips.jpeg' },
+            { id: 13, name: 'Black Short Dress', price: 75000, status: 'instock', category: 'dresses', image: 'black short dress.jpeg' },
+            { id: 14, name: 'Leopard Long Dress', price: 120000, status: 'instock', category: 'dresses', image: 'leopard long.jpeg' },
+            { id: 15, name: 'Leopard Short Dress', price: 95000, status: 'instock', category: 'dresses', image: 'leopard short.jpeg' },
+            { id: 16, name: 'Maroon Dress', price: 82000, status: 'instock', category: 'dresses', image: 'jjj.jpeg' },
+            { id: 17, name: 'Red Dress Slit', price: 110000, status: 'instock', category: 'dresses', image: 'red dress slit.jpeg' },
+            { id: 18, name: 'Red Dress', price: 78000, status: 'instock', category: 'dresses', image: 'red.jpeg' },
+            { id: 19, name: 'Short Dress', price: 65000, status: 'instock', category: 'dresses', image: 'short dress.jpeg' },
+            { id: 20, name: 'White Dress', price: 88000, status: 'instock', category: 'dresses', image: 'white.jpeg' },
+            { id: 21, name: 'Mirror Dress', price: 99000, status: 'instock', category: 'dresses', image: 'mirror.jpeg' },
+            { id: 22, name: 'Leopard 3 Dress', price: 105000, status: 'outofstock', category: 'dresses', image: 'leopard 3.jpeg' },
+        ];
+
+        function renderProducts() {
+            const bagsGrid = document.getElementById('bagsGrid');
+            const dressesGrid = document.getElementById('dressesGrid');
+
+            const bags = products.filter(p => p.category === 'bags');
+            const dresses = products.filter(p => p.category === 'dresses');
+
+            bagsGrid.innerHTML = bags.map(p => createProductCard(p)).join('');
+            dressesGrid.innerHTML = dresses.map(p => createProductCard(p)).join('');
+        }
+
+        function createProductCard(p) {
+            const imgHtml = p.image ? 
+                `<img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='👜'">` : 
+                '👜';
+            const priceFormatted = 'UGX ' + Number(p.price).toLocaleString();
+            const categoryLabel = p.category === 'bags' ? '👜 Bag' : '👗 Dress';
+            return `
+                <div class="product-card">
+                    <div class="product-img">${imgHtml}</div>
+                    <div class="product-category">${categoryLabel}</div>
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-price">${priceFormatted}</div>
+                    <span class="product-status ${p.status === 'instock' ? 'status-instock' : 'status-outofstock'}">
+                        ${p.status === 'instock' ? '✅ In stock' : '❌ Out of stock'}
+                    </span>
+                </div>
+            `;
+        }
+
+        // INIT
+        document.addEventListener('DOMContentLoaded', function() {
+            initHero();
+            renderProducts();
+        });
+
+        if (document.readyState !== 'loading') {
+            initHero();
+            renderProducts();
+        }
+    </script>
+</body>
+</html>

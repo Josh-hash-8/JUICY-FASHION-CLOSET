@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍑 Juicy Fashion Closet - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fef6f2;
+            color: #2d1f1b;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            max-width: 420px;
+            width: 90%;
+            margin: 40px auto;
+            background: white;
+            border-radius: 48px;
+            padding: 40px 36px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            border: 2px solid #fad2c6;
+        }
+        .login-container .logo {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #b34a3c;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .login-container .logo i {
+            color: #d67a62;
+        }
+        .login-container .logo img {
+            height: 60px;
+            width: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #d67a62;
+        }
+        .login-container h2 {
+            color: #763f31;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 60px;
+            border: 1px solid #e5cbc2;
+            background: #fcf3ef;
+            margin-bottom: 16px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .login-container input:focus {
+            outline: none;
+            border-color: #d67a62;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 60px;
+            border: none;
+            background: #d67a62;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .login-container button:hover {
+            background: #b85f48;
+            transform: scale(0.98);
+        }
+        .login-container .error-msg {
+            color: #e74c3c;
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 600;
+            min-height: 24px;
+        }
+        .login-container .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            color: #763f31;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .login-container .back-link:hover {
+            color: #b85f48;
+        }
+        .login-container .demo-info {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            color: #5c3d33;
+        }
+        @media (max-width: 480px) {
+            .login-container { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="logo.jpeg" alt="Juicy Fashion" onerror="this.style.display='none'">
+            <br>
+            <i class="fas fa-crown"></i> Juicy Fashion
+        </div>
+        <h2><i class="fas fa-lock" style="color:#d67a62;"></i> Admin Login</h2>
+        <div class="error-msg" id="loginError"></div>
+        <input type="text" id="loginUsername" placeholder="Username" value="admin" />
+        <input type="password" id="loginPassword" placeholder="Password" value="admin123" />
+        <button id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <div class="demo-info">Demo: admin / admin123</div>
+    </div>
+
+    <script>
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (username === 'admin' && password === 'admin123') {
+                localStorage.setItem('juicy_session', 'true');
+                window.location.href = 'admin.html';
+            } else {
+                document.getElementById('loginError').textContent = '❌ Invalid credentials. Try admin/admin123';
+            }
+        });
+
+        document.getElementById('loginPassword').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
+        document.getElementById('loginUsername').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
+    </script>
+</body>
+</html>

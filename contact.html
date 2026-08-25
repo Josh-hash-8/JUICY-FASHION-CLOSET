@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍑 Juicy Fashion Closet - Contact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fef6f2;
+            color: #2d1f1b;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #fad5cd;
+            background: rgba(255, 248, 245, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #b34a3c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .logo img {
+            height: 45px;
+            width: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #d67a62;
+        }
+        .logo i {
+            color: #d67a62;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4f3630;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .nav a:hover,
+        .nav a.active {
+            background: #d67a62;
+            color: white;
+        }
+        .nav .login-btn {
+            background: #d67a62;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .nav .login-btn:hover {
+            background: #b85f48;
+        }
+        .section-title {
+            font-size: 2rem;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #763f31;
+            border-bottom: 3px solid #fad5cd;
+            padding-bottom: 10px;
+        }
+        .section-title i {
+            color: #d67a62;
+        }
+        
+        /* CONTACT PAGE STYLES */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
+        }
+        
+        .contact-info {
+            background: white;
+            border-radius: 40px;
+            padding: 35px;
+            border: 1px solid #fad2c6;
+            box-shadow: 0 8px 20px rgba(190, 100, 80, 0.06);
+        }
+        .contact-info h3 {
+            color: #763f31;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .contact-info .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5dbd2;
+        }
+        .contact-info .info-item:last-child {
+            border-bottom: none;
+        }
+        .contact-info .info-item i {
+            font-size: 1.5rem;
+            color: #d67a62;
+            width: 30px;
+            margin-top: 3px;
+        }
+        .contact-info .info-item .label {
+            font-weight: 600;
+            color: #763f31;
+        }
+        .contact-info .info-item .value {
+            color: #4f3630;
+            line-height: 1.6;
+        }
+        .contact-info .info-item a {
+            color: #4f3630;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .contact-info .info-item a:hover {
+            color: #d67a62;
+        }
+        
+        .email-options {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px dashed #f5d3c8;
+        }
+        .email-options h4 {
+            color: #763f31;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .email-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .email-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            border: 2px solid #e5cbc2;
+            background: white;
+            color: #4f3630;
+        }
+        .email-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .email-btn.gmail {
+            border-color: #ea4335;
+            color: #ea4335;
+        }
+        .email-btn.gmail:hover {
+            background: #ea4335;
+            color: white;
+        }
+        .email-btn.yahoo {
+            border-color: #720e9e;
+            color: #720e9e;
+        }
+        .email-btn.yahoo:hover {
+            background: #720e9e;
+            color: white;
+        }
+        .email-btn.outlook {
+            border-color: #0072c6;
+            color: #0072c6;
+        }
+        .email-btn.outlook:hover {
+            background: #0072c6;
+            color: white;
+        }
+        .email-btn.default {
+            border-color: #d67a62;
+            color: #d67a62;
+        }
+        .email-btn.default:hover {
+            background: #d67a62;
+            color: white;
+        }
+        .email-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* CONTACT FORM */
+        .contact-form {
+            background: white;
+            border-radius: 40px;
+            padding: 35px;
+            border: 1px solid #fad2c6;
+            box-shadow: 0 8px 20px rgba(190, 100, 80, 0.06);
+        }
+        .contact-form h3 {
+            color: #763f31;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .contact-form .form-group {
+            margin-bottom: 18px;
+        }
+        .contact-form label {
+            display: block;
+            font-weight: 600;
+            color: #763f31;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 60px;
+            border: 1px solid #e5cbc2;
+            background: #fcf3ef;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+        .contact-form textarea {
+            border-radius: 20px;
+            resize: vertical;
+            min-height: 120px;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            outline: none;
+            border-color: #d67a62;
+        }
+        .contact-form select {
+            appearance: none;
+            cursor: pointer;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 60px;
+            border: none;
+            background: #d67a62;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .contact-form button:hover {
+            background: #b85f48;
+            transform: scale(0.98);
+        }
+        .contact-form .form-message {
+            margin-top: 15px;
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: none;
+            font-weight: 600;
+        }
+        .contact-form .form-message.success {
+            display: block;
+            background: #d4edda;
+            color: #1e6b3b;
+        }
+        .contact-form .form-message.error {
+            display: block;
+            background: #f8dddd;
+            color: #a83f3f;
+        }
+
+        /* MAP SECTION */
+        .map-section {
+            margin: 30px 0;
+        }
+        .map-section .map-wrap {
+            border-radius: 36px;
+            overflow: hidden;
+            border: 4px solid #fad9cf;
+            height: 300px;
+            background: #e6cbc2;
+        }
+        .map-section .map-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* SOCIAL MEDIA */
+        .social-section {
+            background: white;
+            border-radius: 40px;
+            padding: 35px;
+            margin: 30px 0;
+            border: 1px solid #fad2c6;
+            text-align: center;
+        }
+        .social-section h3 {
+            color: #763f31;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        .social-icons-large {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .social-icons-large a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #fcf3ef;
+            color: #763f31;
+            font-size: 1.8rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .social-icons-large a:hover {
+            transform: translateY(-5px);
+            color: white;
+        }
+        .social-icons-large a.facebook:hover {
+            background: #1877f2;
+        }
+        .social-icons-large a.instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        .social-icons-large a.twitter:hover {
+            background: #000000;
+        }
+        .social-icons-large a.pinterest:hover {
+            background: #e60023;
+        }
+        .social-icons-large a.whatsapp:hover {
+            background: #25d366;
+        }
+        .social-icons-large a.youtube:hover {
+            background: #ff0000;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #2d1f1b;
+            color: #fef6f2;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .footer-section h3 {
+            color: #d67a62;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .footer-section p,
+        .footer-section a {
+            color: #e0d6d2;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+        }
+        .footer-section a:hover {
+            color: #d67a62;
+            padding-left: 5px;
+        }
+        .footer-section .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .footer-section .social-icons a {
+            font-size: 1.5rem;
+            color: #e0d6d2;
+            transition: 0.3s;
+        }
+        .footer-section .social-icons a:hover {
+            color: #d67a62;
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #4a3530;
+            color: #a08a84;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 12px; }
+            .contact-info { padding: 25px; }
+            .contact-form { padding: 25px; }
+            .email-buttons { flex-direction: column; }
+            .social-icons-large { gap: 15px; }
+            .social-icons-large a { width: 50px; height: 50px; font-size: 1.5rem; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .logo { font-size: 1.5rem; }
+            .logo img { height: 35px; width: 35px; }
+            .nav a { font-size: 0.8rem; padding: 4px 10px; }
+            .contact-info { padding: 20px; }
+            .contact-form { padding: 20px; }
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="logo.jpeg" alt="Juicy Fashion" onerror="this.style.display='none'">
+                <span><i class="fas fa-crown"></i> Juicy Fashion</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="news.html">News</a>
+                <a href="contact.html" class="active">Contact</a>
+                <a href="admin.html">Admin</a>
+                <button class="login-btn" onclick="window.location.href='login.html'"><i class="fas fa-user"></i> Login</button>
+            </nav>
+        </header>
+
+        <!-- CONTACT SECTION -->
+        <div class="section-title">
+            <i class="fas fa-address-book"></i> Contact Us
+            <span class="badge" style="background:#d67a62; color:white; font-size:0.8rem; padding:4px 14px; border-radius:30px; margin-left:10px;">We'd love to hear from you!</span>
+        </div>
+
+        <div class="contact-wrapper">
+            <!-- CONTACT INFO -->
+            <div class="contact-info">
+                <h3><i class="fas fa-info-circle" style="color:#d67a62;"></i> Get in Touch</h3>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <div class="label">📍 Location</div>
+                        <div class="value">Kampala, Uganda</div>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <div class="label">📞 Phone / WhatsApp</div>
+                        <div class="value">
+                            <a href="https://wa.me/254744366251" target="_blank">0744366251</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <div class="label">✉️ Email</div>
+                        <div class="value">
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juicyfashioncloset@gmail.com" target="_blank">juicyfashioncloset@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <div class="label">🕐 Working Hours</div>
+                        <div class="value">
+                            Monday - Friday: 8:00 AM - 6:00 PM<br>
+                            Saturday: 9:00 AM - 4:00 PM<br>
+                            Sunday: Closed
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EMAIL OPTIONS -->
+                <div class="email-options">
+                    <h4><i class="fas fa-envelope-open-text"></i> Send Email Via</h4>
+                    <div class="email-buttons">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juicyfashioncloset@gmail.com" target="_blank" class="email-btn gmail">
+                            <i class="fas fa-envelope"></i> Gmail
+                        </a>
+                        <a href="https://mail.yahoo.com/d/compose?to=juicyfashioncloset@gmail.com" target="_blank" class="email-btn yahoo">
+                            <i class="fas fa-envelope"></i> Yahoo
+                        </a>
+                        <a href="https://outlook.live.com/mail/0/deeplink/compose?to=juicyfashioncloset@gmail.com" target="_blank" class="email-btn outlook">
+                            <i class="fas fa-envelope"></i> Outlook
+                        </a>
+                        <a href="mailto:juicyfashioncloset@gmail.com" class="email-btn default">
+                            <i class="fas fa-envelope"></i> Default Mail
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT FORM -->
+            <div class="contact-form">
+                <h3><i class="fas fa-paper-plane" style="color:#d67a62;"></i> Send us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="emailAddress"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="emailAddress" placeholder="Enter your email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber"><i class="fas fa-phone"></i> Phone Number</label>
+                        <input type="tel" id="phoneNumber" placeholder="Enter your phone number" />
+                    </div>
+                    <div class="form-group">
+                        <label for="subject"><i class="fas fa-tag"></i> Subject</label>
+                        <select id="subject">
+                            <option value="general">General Inquiry</option>
+                            <option value="product">Product Question</option>
+                            <option value="order">Order Status</option>
+                            <option value="returns">Returns / Exchange</option>
+                            <option value="partnership">Partnership / Collaboration</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message"><i class="fas fa-comment"></i> Message</label>
+                        <textarea id="message" placeholder="Write your message here..." required></textarea>
+                    </div>
+                    <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    <div id="formMessage" class="form-message"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- SOCIAL MEDIA -->
+        <div class="social-section">
+            <h3><i class="fas fa-share-alt" style="color:#d67a62;"></i> Connect With Us</h3>
+            <div class="social-icons-large">
+                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="pinterest"><i class="fab fa-pinterest-p"></i></a>
+                <a href="https://wa.me/254744366251" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <!-- MAPS -->
+        <div class="map-section">
+            <div class="section-title" style="border-bottom: none; margin-bottom: 15px;">
+                <i class="fas fa-map-marked-alt"></i> Find Us
+            </div>
+            <div class="map-wrap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509437!2d144.95373531531534!3d-37.81627997975159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5df1f5b0b1%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1644262070686!5m2!1sen!2sus" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-crown"></i> Juicy Fashion</h3>
+                <p>Your go-to destination for modern, feminine fashion in Uganda. Quality dresses and bags for every occasion.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="news.html">News</a>
+                <a href="contact.html">Contact</a>
+                <a href="admin.html">Admin</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <a href="https://wa.me/254744366251" target="_blank"><i class="fas fa-phone"></i> 0744366251</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juicyfashioncloset@gmail.com" target="_blank"><i class="fas fa-envelope"></i> juicyfashioncloset@gmail.com</a>
+                <p><i class="fas fa-map-marker-alt"></i> Kampala, Uganda</p>
+            </div>
+            <div class="footer-section">
+                <h3>Working Hours</h3>
+                <p>Mon - Fri: 8:00 AM - 6:00 PM</p>
+                <p>Saturday: 9:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Juicy Fashion Closet. All rights reserved. | Made with <i class="fas fa-heart" style="color:#d67a62;"></i> in Uganda
+        </div>
+    </footer>
+
+    <script>
+        // CONTACT FORM HANDLER
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('emailAddress').value;
+            const phone = document.getElementById('phoneNumber').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const messageEl = document.getElementById('formMessage');
+
+            // Simple validation
+            if (!name || !email || !message) {
+                messageEl.className = 'form-message error';
+                messageEl.textContent = '❌ Please fill in all required fields.';
+                return;
+            }
+
+            // Email validation
+            if (!email.includes('@') || !email.includes('.')) {
+                messageEl.className = 'form-message error';
+                messageEl.textContent = '❌ Please enter a valid email address.';
+                return;
+            }
+
+            // Build email subject
+            const subjectMap = {
+                'general': 'General Inquiry',
+                'product': 'Product Question',
+                'order': 'Order Status',
+                'returns': 'Returns / Exchange',
+                'partnership': 'Partnership / Collaboration',
+                'other': 'Other'
+            };
+
+            const emailSubject = `Juicy Fashion - ${subjectMap[subject] || 'Inquiry'}`;
+            const emailBody = `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\n\nMessage:\n${message}`;
+
+            // Open Gmail with pre-filled email
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=juicyfashioncloset@gmail.com&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Show success message
+            messageEl.className = 'form-message success';
+            messageEl.textContent = '✅ Message ready! Opening Gmail...';
+            
+            // Open Gmail in new tab
+            setTimeout(() => {
+                window.open(gmailUrl, '_blank');
+            }, 800);
+
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                this.reset();
+                messageEl.textContent = '✅ Message sent successfully!';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
